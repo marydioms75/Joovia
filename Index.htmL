@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>JOOVIA — Explore le monde</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#fff;
+  color:#202124;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+}
+.logo{
+  font-size:35px;
+  font-weight:bold;
+  letter-spacing:-2px;
+}
+.j{color:#4285f4}.o1{color:#ea4335}
+.o2{color:#fbbc05}.v{color:#34a853}
+.i{color:#4285f4}.a{color:#ea4335}
+header a{color:#555;text-decoration:none;font-size:14px}
+main{
+  max-width:650px;
+  margin:85px auto 0;
+  padding:20px;
+  text-align:center;
+}
+h1{font-size:65px;margin:0 0 12px}
+.slogan{color:#70757a;margin-bottom:28px}
+.search{
+  display:flex;
+  align-items:center;
+  border:1px solid #dfe1e5;
+  border-radius:30px;
+  padding:7px 15px;
+  box-shadow:0 2px 8px #00000012;
+}
+.search:focus-within{box-shadow:0 2px 10px #00000025}
+.search input{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:none;
+  padding:12px 8px;
+  font-size:16px;
+}
+.search button{
+  border:0;
+  background:white;
+  font-size:21px;
+  cursor:pointer;
+}
+.tabs{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:22px 0;
+}
+.tabs button{
+  padding:10px 15px;
+  border:1px solid #eee;
+  background:#f8f9fa;
+  border-radius:20px;
+  cursor:pointer;
+}
+.tabs button.active{
+  background:#e8f0fe;
+  color:#1967d2;
+}
+.actions button{
+  padding:11px 17px;
+  border:0;
+  border-radius:6px;
+  background:#f8f9fa;
+  cursor:pointer;
+  margin:4px;
+}
+#message{
+  margin-top:25px;
+  color:#5f6368;
+  line-height:1.6;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:28px;
+  text-align:left;
+}
+.card{
+  border:1px solid #eee;
+  padding:15px;
+  border-radius:12px;
+}
+.card strong{display:block;margin-bottom:8px}
+.card p{font-size:13px;color:#666;line-height:1.5}
+footer{
+  text-align:center;
+  color:#777;
+  padding:45px 15px 25px;
+  font-size:13px;
+}
+@media(max-width:480px){
+  main{margin-top:55px;padding:15px}
+  h1{font-size:54px}
+  .cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">
+    <span class="j">J</span><span class="o1">O</span><span class="o2">O</span><span class="v">V</span><span class="i">I</span><span class="a">A</span>
+  </div>
+  <a href="#apropos">À propos</a>
+</header>
+
+<main>
+  <h1 class="logo">
+    <span class="j">J</span><span class="o1">O</span><span class="o2">O</span><span class="v">V</span><span class="i">I</span><span class="a">A</span>
+  </h1>
+
+  <p class="slogan">Explore le monde à ta façon 🌍</p>
+
+  <form id="searchForm" class="search">
+    <span>🔎</span>
+    <input id="query" type="search"
+      placeholder="Rechercher sur Internet..."
+      aria-label="Recherche" required>
+    <button type="submit" aria-label="Lancer la recherche">➜</button>
+  </form>
+
+  <div class="tabs">
+    <button class="active" data-type="web">🌐 Web</button>
+    <button data-type="images">🖼️ Images</button>
+    <button data-type="videos">🎬 Vidéos</button>
+    <button data-type="news">📰 Actualités</button>
+  </div>
+
+  <div class="actions">
+    <button id="searchBtn">Recherche JOOVIA</button>
+    <button id="aiBtn">🤖 Demander à l'IA</button>
+  </div>
+
+  <div id="message">
+    Bienvenue sur JOOVIA !<br>
+    Choisis une recherche et écris ce que tu veux découvrir.
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <strong>🌐 Recherche Web</strong>
+      <p>Découvre des sites et des informations sur Internet.</p>
+    </div>
+    <div class="card">
+      <strong>🖼️ Images</strong>
+      <p>Explore des images correspondant à ta recherche.</p>
+    </div>
+    <div class="card">
+      <strong>🎬 Vidéos</strong>
+      <p>Retrouve des vidéos sur les sujets qui t'intéressent.</p>
+    </div>
+    <div class="card">
+      <strong>🤖 Intelligence artificielle</strong>
+      <p>Prépare-toi à poser tes questions à l'assistant JOOVIA.</p>
+    </div>
+  </div>
+</main>
+
+<footer id="apropos">
+  JOOVIA © 2026 · Un nouveau regard sur le monde.
+</footer>
+
+<script>
+let type = "web";
+
+document.querySelectorAll(".tabs button").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".tabs button").forEach(b =>
+      b.classList.remove("active")
+    );
+    button.classList.add("active");
+    type = button.dataset.type;
+  });
+});
+
+function searchWeb(){
+  const q = document.getElementById("query").value.trim();
+  if(!q){
+    document.getElementById("query").focus();
+    return;
+  }
+
+  const engines = {
+    web: "https://www.google.com/search?q=",
+    images: "https://www.google.com/search?tbm=isch&q=",
+    videos: "https://www.youtube.com/results?search_query=",
+    news: "https://www.google.com/search?tbm=nws&q="
+  };
+
+  document.getElementById("message").textContent =
+    "Ouverture des résultats pour : " + q;
+
+  window.open(engines[type] + encodeURIComponent(q), "_blank");
+}
+
+document.getElementById("searchForm").addEventListener("submit", e => {
+  e.preventDefault();
+  searchWeb();
+});
+
+document.getElementById("searchBtn").addEventListener("click", searchWeb);
+
+document.getElementById("aiBtn").addEventListener("click", () => {
+  const q = document.getElementById("query").value.trim();
+  if(!q){
+    document.getElementById("query").focus();
+    return;
+  }
+  document.getElementById("message").textContent =
+    "Pour répondre à « " + q +
+    " », JOOVIA devra être connecté à un service d'intelligence artificielle.";
+  window.open(
+    "https://www.google.com/search?q=" +
+    encodeURIComponent(q + " explication"),
+    "_blank"
+  );
+});
+</script>
+</body>
+</html>
